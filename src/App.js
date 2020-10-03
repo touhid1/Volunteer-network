@@ -1,19 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Header from './components/Header/Header';
-import { Router } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import RegisterVolunteer from './components/RegisterVolunteer/RegisterVolunteer';
+import AddEvent from './components/AddEvent/AddEvent';
 
 function App() {
   return (
     <div className="App">
-	
-			<Router>
-				<Header></Header>
-			
-			</Router>
-		
-
+      <Router>
+        <Switch>
+          <Route path="/registration">
+            <RegisterVolunteer/>
+          </Route>
+          <Route path="/addevent">
+            <AddEvent></AddEvent>
+          </Route>
+        </Switch>
+      </Router>
+      
     </div>
   );
 }
