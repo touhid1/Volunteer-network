@@ -1,29 +1,43 @@
-import React from 'react';
+import React, { createContext } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import RegisterVolunteer from './components/RegisterVolunteer/RegisterVolunteer';
-import AddEvent from './components/AddEvent/AddEvent';
+import Home from './Component/Home/Home';
+import Donation from './Component/Donation/Donation';
+import Events from './Component/Events/Events';
+import LogIn from './Component/LogIn/LogIn';
+import Register from './Component/Register/Register';
+import { useState } from 'react';
+import PrivetRoute from './Component/PrivateRoute/PrivetRoute';
+import Header from './Component/Header/Header';
+
+
+export const UserContext = createContext();
 
 function App() {
+  const [loggedInUser, setLoggedInUser] = useState({});
   return (
-    <div className="App">
-      <Router>
-        <Switch>
-          <Route path="/registration">
-            <RegisterVolunteer/>
-          </Route>
-          <Route path="/addevent">
-            <AddEvent></AddEvent>
-          </Route>
-        </Switch>
-      </Router>
-      
-    </div>
+      <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
+        <Router>
+          <Header />
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/donation">
+              <Donation />
+            </Route>
+            <Route path="/event">
+              <Events />
+            </Route>
+              <Route path="/logIn">
+                <LogIn />
+              </Route>
+              <PrivetRoute path="/register">
+                <Register />
+              </PrivetRoute>
+          </Switch>
+        </Router>
+      </UserContext.Provider>
   );
 }
 
